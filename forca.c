@@ -3,6 +3,8 @@
 
 int main(){
     char palavra[20];
+    char chutes[26];
+    int tentativas = 0;
     int acertou = 0;
     int enforcou = 0;
     // o \0 indica o fim da string ao usar o printf com %s
@@ -14,17 +16,34 @@ int main(){
     do{        
         //Início do jogo
         char palpite;
-        scanf("%c",&palpite);
 
-        for(int i=0;i<strlen(palavra);i++){
-            printf("A palavra que pensei tem %d letras.",strlen(palavra));
+        //Ao usar um scanf, ele irá ler o ENTER quando o usuário fizer o input, assim pode-se contornar uma leitura duplicada usando " %c" com espaço antes da porcentagem
+        scanf(" %c",&palpite);
+        
+        printf("A palavra secreta tem %d letras\n", strlen(palavra));
+        
+        for(int i = 0; i<strlen(palavra);i++){
 
-            if(palavra[i] == palpite){
-                printf("A posição %d tem a letra %c", i, palpite);
+            int achou = 0;
+
+            for(int j = 0;j < tentativas;j++){
+                
+                if(chutes[j] == palavra[i]){
+                    achou = 1;
+                    break;
+                }
+            }
+            
+            if(achou){
+                printf("%c ");
             }else{
-                printf("A letra %c não faz parte da palavra", palpite);
+                printf("_ ");
             }
         }
+        printf("\n");
+
+        chutes[tentativas] = palpite;
+        tentativas++;
 
     //Ao usar a exclamação, ela nega uma variável booleana
     }while(!acertou && !enforcou);
