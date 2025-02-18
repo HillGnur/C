@@ -1,51 +1,68 @@
 #include <stdio.h>
 #include <string.h>
 
-int main(){
-    char palavra[20];
-    char chutes[26];
-    int tentativas = 0;
+char palavrasecreta[20];
+char chutes[26];
+int tentativas = 0;
+
+void chuta() {
+    char chute;
+    printf("Qual letra? ");
+    scanf(" %c", &chute);
+
+    chutes[tentativas] = chute;
+}
+
+// Essa função não foi discutida no último vídeo
+int jachutou(char letra) {
+    int achou = 0;
+    for(int j = 0; j < tentativas; j++) {
+        if(chutes[j] == letra) {
+            achou = 1;
+            break;
+        }
+    }
+
+    return achou;
+}
+
+// Essa função não foi discutida no último vídeo
+void desenhaforca() {
+
+    printf("Você já deu %d chutes\n", tentativas);
+
+    for(int i = 0; i < strlen(palavrasecreta); i++) {
+
+        if(jachutou(palavrasecreta[i])) {
+            printf("%c ", palavrasecreta[i]);
+        } else {
+            printf("_ ");
+        }
+
+    }
+    printf("\n");
+
+}
+
+// Essa função não foi discutida no último vídeo
+void escolhepalavra() {
+    sprintf(palavrasecreta, "MELANCIA");
+}
+
+int main() {
+
     int acertou = 0;
     int enforcou = 0;
-    // o \0 indica o fim da string ao usar o printf com %s
-    sprintf(palavra, "Melancia\0 e Banana");
 
-    //o while (entry-controlled) checa a condição antes de ser executado, enquanto que o do-while (exit-controlled) checa ao fim da execução
-    //sendo assim, o While pode não executar o código caso a condição seja inicialmente falsa
-    //enquanto isso, o do-while garante que a execução venha antes da verificação
-    do{        
-        //Início do jogo
-        char palpite;
+    escolhepalavra();
 
-        //Ao usar um scanf, ele irá ler o ENTER quando o usuário fizer o input, assim pode-se contornar uma leitura duplicada usando " %c" com espaço antes da porcentagem
-        scanf(" %c",&palpite);
-        
-        printf("A palavra secreta tem %d letras\n", strlen(palavra));
-        
-        for(int i = 0; i<strlen(palavra);i++){
+    do {
 
-            int achou = 0;
+        desenhaforca();
+        chuta();
 
-            for(int j = 0;j < tentativas;j++){
-                
-                if(chutes[j] == palavra[i]){
-                    achou = 1;
-                    break;
-                }
-            }
-            
-            if(achou){
-                printf("%c ");
-            }else{
-                printf("_ ");
-            }
-        }
-        printf("\n");
-
-        chutes[tentativas] = palpite;
         tentativas++;
 
-    //Ao usar a exclamação, ela nega uma variável booleana
-    }while(!acertou && !enforcou);
-    //while(acertou == 0 && enforcou ==0){};
-};
+    } while (!acertou && !enforcou);
+
+}

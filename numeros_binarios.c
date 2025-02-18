@@ -32,4 +32,10 @@ processadores
 16 bits = 2¹⁶ = 65.536
 32 bits = 2³² = 4.294.967.296
 64 bits = 2⁶⁴ = 18.446.744.073.709.551.616
+
+Base Hexadecimal (0 a F)
+usa-se os seguintes caracteres 0123456789ABCDEF
+
+256 decimal = FF hexadecimal
+
 */
